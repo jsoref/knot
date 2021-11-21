@@ -5880,7 +5880,7 @@ bpf_perf_event_read_simple(void *mmap_mem, size_t mmap_size, size_t page_size,
 		if (((void *)ehdr) + ehdr_size > base + mmap_size) {
 			void *copy_start = ehdr;
 			size_t len_first = base + mmap_size - copy_start;
-			size_t len_secnd = ehdr_size - len_first;
+			size_t len_second = ehdr_size - len_first;
 
 			if (*copy_size < ehdr_size) {
 				free(*copy_mem);
@@ -5894,7 +5894,7 @@ bpf_perf_event_read_simple(void *mmap_mem, size_t mmap_size, size_t page_size,
 			}
 
 			memcpy(*copy_mem, copy_start, len_first);
-			memcpy(*copy_mem + len_first, base, len_secnd);
+			memcpy(*copy_mem + len_first, base, len_second);
 			ehdr = *copy_mem;
 		}
 
