@@ -5912,7 +5912,7 @@ struct perf_buffer;
 
 struct perf_buffer_params {
 	struct perf_event_attr *attr;
-	/* if event_cb is specified, it takes precendence */
+	/* if event_cb is specified, it takes precedence */
 	perf_buffer_event_fn event_cb;
 	/* sample_cb and lost_cb are higher-level common-case callbacks */
 	perf_buffer_sample_fn sample_cb;
