@@ -2561,7 +2561,7 @@ static bool str_is_empty(const char *s)
  * just a parsed access string representation): [0, 1, 2, 3].
  *
  * High-level spec will capture only 3 points:
- *   - intial zero-index access by pointer (&s->... is the same as &s[0]...);
+ *   - initial zero-index access by pointer (&s->... is the same as &s[0]...);
  *   - field 'a' access (corresponds to '2' in low-level spec);
  *   - array element #3 access (corresponds to '3' in low-level spec).
  *
