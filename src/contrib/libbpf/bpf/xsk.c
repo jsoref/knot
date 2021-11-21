@@ -341,7 +341,7 @@ static int xsk_load_xdp_prog(struct xsk_socket *xsk)
 	 * {
 	 *     int ret, index = ctx->rx_queue_index;
 	 *
-	 *     // A set entry here means that the correspnding queue_id
+	 *     // A set entry here means that the corresponding queue_id
 	 *     // has an active AF_XDP socket bound to it.
 	 *     ret = bpf_redirect_map(&xsks_map, index, XDP_PASS);
 	 *     if (ret > 0)

@@ -36,17 +36,17 @@ typedef enum {
 	KEY_ROLL_FORCE_KSK_ROLL    = (1 << 1),
 	KEY_ROLL_ALLOW_ZSK_ROLL    = (1 << 2),
 	KEY_ROLL_FORCE_ZSK_ROLL    = (1 << 3),
-	KEY_ROLL_ALLOW_NSEC3RESALT = (1 << 4),
+	KEY_ROLL_ALLOW_NSEC3RE_SALT = (1 << 4),
 	KEY_ROLL_ALLOW_ALL         = KEY_ROLL_ALLOW_KSK_ROLL |
 	                             KEY_ROLL_ALLOW_ZSK_ROLL |
-	                             KEY_ROLL_ALLOW_NSEC3RESALT
+	                             KEY_ROLL_ALLOW_NSEC3RE_SALT
 } zone_sign_roll_flags_t;
 
 typedef struct {
 	knot_time_t next_sign;
 	knot_time_t next_rollover;
-	knot_time_t next_nsec3resalt;
-	knot_time_t last_nsec3resalt;
+	knot_time_t next_nsec3re_salt;
+	knot_time_t last_nsec3re_salt;
 	bool keys_changed;
 	bool plan_ds_check;
 } zone_sign_reschedule_t;
@@ -94,22 +94,22 @@ int knot_dnssec_zone_sign(zone_update_t *update,
 int knot_dnssec_sign_update(zone_update_t *update, conf_t *conf, zone_sign_reschedule_t *reschedule);
 
 /*!
- * \brief Create new NCES3 salt if the old one is too old, and plan next resalt.
+ * \brief Create new NCES3 salt if the old one is too old, and plan next re-salt.
  *
  * For given zone, check NSEC3 salt in KASP db and decide if it shall be recreated
  * and tell the user the next time it shall be called.
  *
- * This function is optimized to be called from NSEC3RESALT_EVENT,
+ * This function is optimized to be called from NSEC3RE_SALT_EVENT,
  * but also during zone load so that the zone gets loaded already with
  * proper DNSSEC chain.
  *
  * \param ctx           zone signing context
  * \param salt_changed  output if KNOT_EOK: when was the salt last changed? (either ctx->now or 0)
- * \param when_resalt   output: tmestamp when next resalt takes place
+ * \param when_re_salt  output: timestamp when next re-salt takes place
  *
  * \return KNOT_E*
  */
-int knot_dnssec_nsec3resalt(kdnssec_ctx_t *ctx, knot_time_t *salt_changed, knot_time_t *when_resalt);
+int knot_dnssec_nsec3re_salt(kdnssec_ctx_t *ctx, knot_time_t *salt_changed, knot_time_t *when_re_salt);
 
 /*!
  * \brief When DNSSEC signing failed, re-plan on this time.

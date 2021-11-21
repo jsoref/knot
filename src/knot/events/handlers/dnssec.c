@@ -54,14 +54,14 @@ void event_dnssec_reschedule(conf_t *conf, zone_t *zone,
 		zone->timers.next_ds_check = now;
 	}
 
-	if (refresh->last_nsec3resalt) {
-		zone->timers.last_resalt = refresh->last_nsec3resalt;
+	if (refresh->last_nsec3re_salt) {
+		zone->timers.last_re_salt = refresh->last_nsec3re_salt;
 	}
 
 	zone_events_schedule_at(zone,
 		ZONE_EVENT_DNSSEC, refresh_at ? (time_t)refresh_at : ignore,
 		ZONE_EVENT_DS_CHECK, refresh->plan_ds_check ? now : ignore,
-		ZONE_EVENT_NSEC3RESALT, refresh->next_nsec3resalt ? refresh->next_nsec3resalt : ignore,
+		ZONE_EVENT_NSEC3RE_SALT, refresh->next_nsec3re_salt ? refresh->next_nsec3re_salt : ignore,
 		ZONE_EVENT_NOTIFY, zone_changed ? now : ignore
 	);
 }

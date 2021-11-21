@@ -156,7 +156,7 @@ PKG_CHECK_MODULES([gnutls], [gnutls >= 3.3], [
         [#include <gnutls/gnutls.h>])
 
     AC_CHECK_DECL([GNUTLS_PRIVKEY_FLAG_REPRODUCIBLE],
-        [AC_DEFINE([HAVE_GLNUTLS_REPRODUCIBLE], [1], [GnuTLS reproducible signing available])
+        [AC_DEFINE([HAVE_GNUTLS_REPRODUCIBLE], [1], [GnuTLS reproducible signing available])
          # Ensure the version is at least 3.6.10
          AC_CHECK_FUNC([gnutls_aead_cipher_encryptv2], [enable_repro_signing=yes], [enable_repro_signing=no])],
         [enable_repro_signing=no],
@@ -381,7 +381,7 @@ AS_IF([test "$with_urcu" != "no"], [
 
 static_modules=""
 shared_modules=""
-static_modules_declars=""
+static_modules_declares=""
 static_modules_init=""
 doc_modules=""
 
@@ -398,8 +398,8 @@ KNOT_MODULE([stats],       "yes")
 KNOT_MODULE([synthrecord], "yes")
 KNOT_MODULE([whoami],      "yes")
 
-AC_SUBST([STATIC_MODULES_DECLARS], [$(printf "$static_modules_declars")])
-AM_SUBST_NOTMAKE([STATIC_MODULES_DECLARS])
+AC_SUBST([STATIC_MODULES_DECLARES], [$(printf "$static_modules_declares")])
+AM_SUBST_NOTMAKE([STATIC_MODULES_DECLARES])
 AC_SUBST([STATIC_MODULES_INIT], [$(printf "$static_modules_init")])
 AM_SUBST_NOTMAKE([STATIC_MODULES_INIT])
 AC_SUBST([DOC_MODULES], [$(printf "$doc_modules")])

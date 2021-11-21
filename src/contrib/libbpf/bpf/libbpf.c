@@ -2541,7 +2541,7 @@ static bool str_is_empty(const char *s)
  * field bit offset, specified by accessor string. Low-level spec captures
  * every single level of nestedness, including traversing anonymous
  * struct/union members. High-level one only captures semantically meaningful
- * "turning points": named fields and array indicies.
+ * "turning points": named fields and array indices.
  * E.g., for this case:
  *
  *   struct sample {
@@ -2561,7 +2561,7 @@ static bool str_is_empty(const char *s)
  * just a parsed access string representation): [0, 1, 2, 3].
  *
  * High-level spec will capture only 3 points:
- *   - intial zero-index access by pointer (&s->... is the same as &s[0]...);
+ *   - initial zero-index access by pointer (&s->... is the same as &s[0]...);
  *   - field 'a' access (corresponds to '2' in low-level spec);
  *   - array element #3 access (corresponds to '3' in low-level spec).
  *
@@ -3332,7 +3332,7 @@ static void *u32_as_hash_key(__u32 x)
  *    matching the spec. As long as all the specs resolve to the same set of
  *    offsets across all candidates, there is no error. If there is any
  *    ambiguity, CO-RE relocation will fail. This is necessary to accomodate
- *    imprefection of BTF deduplication, which can cause slight duplication of
+ *    imperfection of BTF deduplication, which can cause slight duplication of
  *    the same BTF type, if some directly or indirectly referenced (by
  *    pointer) type gets resolved to different actual types in different
  *    object files. If such situation occurs, deduplicated BTF will end up
@@ -5880,7 +5880,7 @@ bpf_perf_event_read_simple(void *mmap_mem, size_t mmap_size, size_t page_size,
 		if (((void *)ehdr) + ehdr_size > base + mmap_size) {
 			void *copy_start = ehdr;
 			size_t len_first = base + mmap_size - copy_start;
-			size_t len_secnd = ehdr_size - len_first;
+			size_t len_second = ehdr_size - len_first;
 
 			if (*copy_size < ehdr_size) {
 				free(*copy_mem);
@@ -5894,7 +5894,7 @@ bpf_perf_event_read_simple(void *mmap_mem, size_t mmap_size, size_t page_size,
 			}
 
 			memcpy(*copy_mem, copy_start, len_first);
-			memcpy(*copy_mem + len_first, base, len_secnd);
+			memcpy(*copy_mem + len_first, base, len_second);
 			ehdr = *copy_mem;
 		}
 
@@ -5912,7 +5912,7 @@ struct perf_buffer;
 
 struct perf_buffer_params {
 	struct perf_event_attr *attr;
-	/* if event_cb is specified, it takes precendence */
+	/* if event_cb is specified, it takes precedence */
 	perf_buffer_event_fn event_cb;
 	/* sample_cb and lost_cb are higher-level common-case callbacks */
 	perf_buffer_sample_fn sample_cb;

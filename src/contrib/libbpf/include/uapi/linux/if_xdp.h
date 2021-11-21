@@ -85,7 +85,7 @@ struct xdp_options {
 /* Flags for the flags field of struct xdp_options */
 #define XDP_OPTIONS_ZEROCOPY (1 << 0)
 
-/* Pgoff for mmaping the rings */
+/* Pgoff for mmapping the rings */
 #define XDP_PGOFF_RX_RING			  0
 #define XDP_PGOFF_TX_RING		 0x80000000
 #define XDP_UMEM_PGOFF_FILL_RING	0x100000000ULL

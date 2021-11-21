@@ -53,10 +53,10 @@ static int sign_init(zone_update_t *update, conf_t *conf, zone_sign_flags_t flag
 		ctx->now = adjust_now;
 	}
 
-	// perform nsec3resalt if pending
+	// perform nsec3re_salt if pending
 
-	if (roll_flags & KEY_ROLL_ALLOW_NSEC3RESALT) {
-		r = knot_dnssec_nsec3resalt(ctx, &reschedule->last_nsec3resalt, &reschedule->next_nsec3resalt);
+	if (roll_flags & KEY_ROLL_ALLOW_NSEC3RE_SALT) {
+		r = knot_dnssec_nsec3re_salt(ctx, &reschedule->last_nsec3re_salt, &reschedule->next_nsec3re_salt);
 		if (r != KNOT_EOK) {
 			return r;
 		}
@@ -123,7 +123,7 @@ static int generate_salt(dnssec_binary_t *salt, uint16_t length)
 	return KNOT_EOK;
 }
 
-int knot_dnssec_nsec3resalt(kdnssec_ctx_t *ctx, knot_time_t *salt_changed, knot_time_t *when_resalt)
+int knot_dnssec_nsec3re_salt(kdnssec_ctx_t *ctx, knot_time_t *salt_changed, knot_time_t *when_re_salt)
 {
 	int ret = KNOT_EOK;
 
@@ -132,19 +132,19 @@ int knot_dnssec_nsec3resalt(kdnssec_ctx_t *ctx, knot_time_t *salt_changed, knot_
 	}
 
 	if (ctx->zone->nsec3_salt.size != ctx->policy->nsec3_salt_length || ctx->zone->nsec3_salt_created == 0) {
-		*when_resalt = ctx->now;
+		*when_re_salt = ctx->now;
 	} else if (knot_time_cmp(ctx->now, ctx->zone->nsec3_salt_created) < 0) {
 		return KNOT_EINVAL;
 	} else {
-		*when_resalt = knot_time_plus(ctx->zone->nsec3_salt_created, ctx->policy->nsec3_salt_lifetime);
+		*when_re_salt = knot_time_plus(ctx->zone->nsec3_salt_created, ctx->policy->nsec3_salt_lifetime);
 	}
 
-	if (knot_time_cmp(*when_resalt, ctx->now) <= 0) {
+	if (knot_time_cmp(*when_re_salt, ctx->now) <= 0) {
 		if (ctx->policy->nsec3_salt_length == 0) {
 			ctx->zone->nsec3_salt.size = 0;
 			ctx->zone->nsec3_salt_created = ctx->now;
 			*salt_changed = ctx->now;
-			*when_resalt = 0;
+			*when_re_salt = 0;
 			return kdnssec_ctx_commit(ctx);
 		}
 
@@ -154,8 +154,8 @@ int knot_dnssec_nsec3resalt(kdnssec_ctx_t *ctx, knot_time_t *salt_changed, knot_
 			ret = kdnssec_ctx_commit(ctx);
 			*salt_changed = ctx->now;
 		}
-		// continue to planning next resalt even if NOK
-		*when_resalt = knot_time_plus(ctx->now, ctx->policy->nsec3_salt_lifetime);
+		// continue to planning next re-salt even if NOK
+		*when_re_salt = knot_time_plus(ctx->now, ctx->policy->nsec3_salt_lifetime);
 	}
 
 	return ret;

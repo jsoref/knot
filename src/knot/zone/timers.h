@@ -33,7 +33,7 @@ struct zone_timers {
 	time_t next_refresh;           //!< Next zone refresh attempt.
 	bool last_refresh_ok;          //!< Last zone refresh attempt was successful.
 	uint64_t last_notified_serial; //!< SOA serial of last successful NOTIFY; (1<<32) if none.
-	time_t last_resalt;            //!< Last NSEC3 resalt.
+	time_t last_re_salt;           //!< Last NSEC3 re-salt.
 	time_t next_ds_check;          //!< Next parent DS check.
 	time_t next_ds_push;           //!< Next DDNS to parent zone with updated DS record.
 	time_t catalog_member;         //!< This catalog member zone created.
@@ -74,7 +74,7 @@ int zone_timers_write(knot_lmdb_db_t *db, const knot_dname_t *zone,
 /*!
  * \brief Write timers for all zones.
  *
- * \param db      Timer databse.
+ * \param db      Timer database.
  * \param zonedb  Zones database.
  *
  * \return KNOT_E*
@@ -84,7 +84,7 @@ int zone_timers_write_all(knot_lmdb_db_t *db, knot_zonedb_t *zonedb);
 /*!
  * \brief Selectively delete zones from the database.
  *
- * \param db         Timer dababase.
+ * \param db         Timer database.
  * \param keep_zone  Filtering callback.
  * \param cb_data    Data passed to callback function.
  *

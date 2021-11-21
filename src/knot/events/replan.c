@@ -83,7 +83,7 @@ static bool can_expire(const zone_t *zone)
 }
 
 /*!
- * \brief Replan events that depend on zone timers (REFRESH, EXPIRE, FLUSH, RESALT, PARENT DS QUERY).
+ * \brief Replan events that depend on zone timers (REFRESH, EXPIRE, FLUSH, RE_SALT, PARENT DS QUERY).
  */
 void replan_from_timers(conf_t *conf, zone_t *zone)
 {
@@ -117,7 +117,7 @@ void replan_from_timers(conf_t *conf, zone_t *zone)
 		}
 	}
 
-	time_t resalt = TIME_CANCEL;
+	time_t re_salt = TIME_CANCEL;
 	time_t ds_check = TIME_CANCEL;
 	time_t ds_push = TIME_CANCEL;
 	conf_val_t val = conf_zone_get(conf, C_DNSSEC_SIGNING, zone->name);
@@ -126,11 +126,11 @@ void replan_from_timers(conf_t *conf, zone_t *zone)
 		conf_id_fix_default(&policy);
 		val = conf_id_get(conf, C_POLICY, C_NSEC3, &policy);
 		if (conf_bool(&val)) {
-			if (zone->timers.last_resalt == 0) {
-				resalt = now;
+			if (zone->timers.last_re_salt == 0) {
+				re_salt = now;
 			} else {
 				val = conf_id_get(conf, C_POLICY, C_NSEC3_SALT_LIFETIME, &policy);
-				resalt = zone->timers.last_resalt + conf_int(&val);
+				re_salt = zone->timers.last_re_salt + conf_int(&val);
 			}
 		}
 
@@ -149,7 +149,7 @@ void replan_from_timers(conf_t *conf, zone_t *zone)
 	                        ZONE_EVENT_EXPIRE, expire_pre,
 	                        ZONE_EVENT_EXPIRE, expire,
 	                        ZONE_EVENT_FLUSH, flush,
-	                        ZONE_EVENT_NSEC3RESALT, resalt,
+	                        ZONE_EVENT_NSEC3RE_SALT, re_salt,
 	                        ZONE_EVENT_DS_CHECK, ds_check,
 	                        ZONE_EVENT_DS_PUSH, ds_push);
 }
