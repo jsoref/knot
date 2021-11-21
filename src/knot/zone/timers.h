@@ -33,7 +33,7 @@ struct zone_timers {
 	time_t next_refresh;           //!< Next zone refresh attempt.
 	bool last_refresh_ok;          //!< Last zone refresh attempt was successful.
 	uint64_t last_notified_serial; //!< SOA serial of last successful NOTIFY; (1<<32) if none.
-	time_t last_resalt;            //!< Last NSEC3 resalt.
+	time_t last_re_salt;           //!< Last NSEC3 re-salt.
 	time_t next_ds_check;          //!< Next parent DS check.
 	time_t next_ds_push;           //!< Next DDNS to parent zone with updated DS record.
 	time_t catalog_member;         //!< This catalog member zone created.

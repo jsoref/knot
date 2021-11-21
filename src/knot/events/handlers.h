@@ -44,7 +44,7 @@ int event_ufreeze(conf_t *conf, zone_t *zone);
 /*! \brief Unfreeze zone updates. */
 int event_uthaw(conf_t *conf, zone_t *zone);
 /*! \brief Recreates salt for NSEC3 hashing. */
-int event_nsec3resalt(conf_t *conf, zone_t *zone);
+int event_nsec3re_salt(conf_t *conf, zone_t *zone);
 /*! \brief When CDS/CDNSKEY published, look for matching DS */
 int event_ds_check(conf_t *conf, zone_t *zone);
 /*! \brief After change of CDS/CDNSKEY, push the new DS to parent zone as DDNS. */

@@ -53,7 +53,7 @@ enum timer_id {
 	TIMER_LAST_FLUSH,
 	TIMER_LAST_REFRESH,
 	TIMER_NEXT_REFRESH,
-	TIMER_LAST_RESALT,
+	TIMER_LAST_RE_SALT,
 	TIMER_NEXT_DS_CHECK,
 	TIMER_NEXT_DS_PUSH,
 	TIMER_CATALOG_MEMBER,
@@ -88,7 +88,7 @@ static int deserialize_timers(zone_timers_t *timers_ptr,
 		case TIMER_NEXT_REFRESH:   timers.next_refresh = value; break;
 		case TIMER_LAST_REFR_OK:   timers.last_refresh_ok = value; break;
 		case TIMER_LAST_NOTIFIED:  timers.last_notified_serial = value; break;
-		case TIMER_LAST_RESALT:    timers.last_resalt = value; break;
+		case TIMER_LAST_RE_SALT:   timers.last_re_salt = value; break;
 		case TIMER_NEXT_DS_CHECK:  timers.next_ds_check = value; break;
 		case TIMER_NEXT_DS_PUSH:   timers.next_ds_push = value; break;
 		case TIMER_CATALOG_MEMBER: timers.catalog_member = value; break;
@@ -117,7 +117,7 @@ static void txn_write_timers(knot_lmdb_txn_t *txn, const knot_dname_t *zone,
 		TIMER_NEXT_REFRESH,  (uint64_t)timers->next_refresh,
 		TIMER_LAST_REFR_OK,  (uint64_t)timers->last_refresh_ok,
 		TIMER_LAST_NOTIFIED, timers->last_notified_serial,
-		TIMER_LAST_RESALT,   (uint64_t)timers->last_resalt,
+		TIMER_LAST_RE_SALT,  (uint64_t)timers->last_re_salt,
 		TIMER_NEXT_DS_CHECK, (uint64_t)timers->next_ds_check,
 		TIMER_NEXT_DS_PUSH,  (uint64_t)timers->next_ds_push,
 		TIMER_CATALOG_MEMBER,(uint64_t)timers->catalog_member);

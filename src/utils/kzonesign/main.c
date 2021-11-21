@@ -208,8 +208,8 @@ int main(int argc, char *argv[])
 	printf("Next signing: %"KNOT_TIME_PRINTF"\n", next_sign.next_sign);
 	if (rollover) {
 		printf("Next roll-over: %"KNOT_TIME_PRINTF"\n", next_sign.next_rollover);
-		if (next_sign.next_nsec3resalt) {
-			printf("Next NSEC3 re-salt: %"KNOT_TIME_PRINTF"\n", next_sign.next_nsec3resalt);
+		if (next_sign.next_nsec3re_salt) {
+			printf("Next NSEC3 re-salt: %"KNOT_TIME_PRINTF"\n", next_sign.next_nsec3re_salt);
 		}
 		if (next_sign.plan_ds_check) {
 			printf("KSK submission to parent zone needed\n");
