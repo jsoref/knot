@@ -2541,7 +2541,7 @@ static bool str_is_empty(const char *s)
  * field bit offset, specified by accessor string. Low-level spec captures
  * every single level of nestedness, including traversing anonymous
  * struct/union members. High-level one only captures semantically meaningful
- * "turning points": named fields and array indicies.
+ * "turning points": named fields and array indices.
  * E.g., for this case:
  *
  *   struct sample {

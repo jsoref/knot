@@ -174,7 +174,7 @@ enum bpf_field_info_kind {
  *   field;
  * - access_str_off - offset into corresponding .BTF string section. String
  *   itself encodes an accessed field using a sequence of field and array
- *   indicies, separated by colon (:). It's conceptually very close to LLVM's
+ *   indices, separated by colon (:). It's conceptually very close to LLVM's
  *   getelementptr ([0]) instruction's arguments for identifying offset to 
  *   a field.
  *
