@@ -593,7 +593,7 @@ static int (*bpf_redirect)(__u32 ifindex, __u64 flags) = (void *) 23;
  *
  * 	Retrieve the realm or the route, that is to say the
  * 	**tclassid** field of the destination for the *skb*. The
- * 	indentifier retrieved is a user-provided tag, similar to the
+ * 	identifier retrieved is a user-provided tag, similar to the
  * 	one used with the net_cls cgroup (see description for
  * 	**bpf_get_cgroup_classid**\ () helper), but here this tag is
  * 	held by a route (a destination entry), not by a task.
